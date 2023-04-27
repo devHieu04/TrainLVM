@@ -1,16 +1,20 @@
 function nextGreatestLetter(letters, target)
 {
-    var minLetter=letters[0];
-    for(var i=0; i<letters.length; i++)
+   var left = 0;
+   //var minletter ="";
+   var right = letters.length-1;
+   while(left<=right)
+   {
+    var middle = Math.floor((left+right) / 2);
+    if(letters[middle]>target)
     {
-        if(letters[i]>target)
-        {
-           if(letters[i]<minLetter)
-           {
-            minLetter=letters[i];
-           }
-        }
+        right=right-1;
     }
-    return minLetter;
-    
+    else
+    {
+       
+        left=left+1;
+    }
+   }
+   return letters[left%letters.length];
 }
