@@ -1,45 +1,30 @@
 function longestPalindrome(s)
 {
-    var chars = s.split('');
-    var stackchan=[];
-    var stackle=[];
-    for (var i=0; i<chars.length; i++)
-    {
-        var cnt =0;
-        for (var j =0;j<chars.length;j++)
-        {
-            if (chars[i]===chars[j])
-            {
-                cnt++;
-            }
-        }
-        if(cnt%2===0)
-        {
-            stackchan.push(chars[i]);
-        }
-        else
-        {
-            stackle.push(chars[i]);
-        }
+    const count = new Map();
+  for (let i = 0; i < s.length; i++) {
+    const char = s.charAt(i);
+    if (count.has(char)) {
+      count.set(char, count.get(char) + 1);
+    } else {
+      count.set(char, 1);
     }
-    var maxLe = 0;
-    
-    for (var i=0; i<stackle.length; i++)
-    {
-        var count =0;
-        for(var j =0 ; j < stackle.length ;j++)
-        {
-            if(stackle[i]===stackle[j])
-            {
-                count++;
-            }
-        }
-        if (count > maxLe)
-        {
-            maxLe = count;
-           
-        }
+  }
+  
+  let hasOdd = false;
+  let length = 0;
+  for (const [char, charCount] of count.entries()) {
+    if (charCount % 2 === 0) {
+      length += charCount;
+    } else {
+      hasOdd = true;
+      length += charCount - 1;
     }
-    return maxLe + stackchan.length;
+  }
+  
+  if (hasOdd) {
+    length += 1;
+  }
+  
+  return length;
 }
 console.log(longestPalindrome("ccc"));
